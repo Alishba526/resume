@@ -1,0 +1,219 @@
+<!DOCTYPE>
+<html>
+    <head>
+        <title>Resume</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    </head>
+    <body>
+        <div id="resume" class=" container">
+        <div class="left_side"> 
+        <div class="profileText">
+            <div class="imgBx">
+                <img src="img.jpg" width="250" height="300" align="center">
+            </div>
+            <h2>Alishba Rehman <br><span>Web Developer</span></h2>
+        </div>
+        <div class="contactInfo">
+            <h3 class="title"> Contact Info:</h3>
+        <ul>
+            <li>
+                <span class="icon"><i class="fa fa-phone" aria-hidden="true"></i></span>
+                <span class="text">03320405516</span>
+            </li>
+            <li>
+                <span class="icon"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
+                <span class="text">alishbarehman526@gmail.com</span>
+            </li>
+            <li>
+                <span class="icon"><i class="fa fa-linkedin" aria-hidden="true"></i></span>
+                <span class="text">Alishba Rehman</span>
+            </li>
+
+            <li>
+                <span class="icon"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
+            </li>
+            
+        </ul>
+        </div> 
+        <div class="contactInfo education">
+            <h3 class="title"> Education</h3>
+        <ul>
+           
+            
+        </ul>
+        </div> 
+        <div class="contactInfo language">
+            <h3 class="title"> Languages</h3>
+            <ul>
+                <li>
+                    <span class="text">Urdu</span>
+                    <span class="percent">
+                        <div style="width:90%"></div>
+                    </span>
+                    
+                </li>
+
+                <li>
+                    <span class="text">English</span>
+                    <span class="percent">
+                        <div style="width:70%"></div>
+                    </span>
+                </li>
+            </ul>
+        </div>
+        </div>
+        <div class="right_side">
+            <div class="about">
+                <h2 class="title2">Profile</h2>
+                <p>I am a Web Developer enrolled in GIAIC Pakistan, and passionate Web Developer with a strong background in Web Development.  
+                 My journey in IT began in 2023 with GIAIC team.</p>
+            </div>
+            <div class="about">
+                <h2 class="title2"> Experience</h2>
+                <div class="box">
+                    <ul>
+                    <li class="year_company">
+                        <h5>Fresh Candidate</h5>
+                        <h5>Enrolled in GIAIC</h5>
+                        <h5> AI WEb 03 Metaverse Course</h5>
+                    </li>
+
+                   
+                   
+                </ul>
+                    
+                </div>
+            </div>
+
+            <button id="toggleSkills">Hide Skills</button>
+            <div id="contactInfoskills" class="skills-section">
+                <h3 class="title3"> Skills</h3>
+                <ul>
+                    <li>
+                        <span class="text">HTML</span>
+                        <span class="percent">
+                            <div style="width:80%"></div>
+                        </span>
+                        
+                    </li>
+
+    
+                    <li>
+                        <span class="text">CSS</span>
+                        <span class="percent">
+                            <div style="width:65%"></div>
+                        </span>
+                    </li>
+
+                    <li>
+                        <span class="text">JavaScript</span>
+                        <span class="percent">
+                            <div style="width:50%"></div>
+                        </span>
+                    </li>
+
+                    <li>
+                        <span class="text">TypeScript</span>
+                        <span class="percent">
+                            <div style="width:60%"></div>
+                        </span>
+                    </li>
+
+                    <li>
+                        <span class="text">Next.js</span>
+                        <span class="percent">
+                            <div style="width:50%"></div>
+                        </span>
+                    </li>
+
+                    <li>
+                        <span class="text">sanity</span>
+                        <span class="percent">
+                            <div style="width:30%"></div>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+
+            
+            <button id="downloadResume">Download as PDF</button>  
+                   
+
+        </div>
+            
+        </div>
+         
+
+        <script>
+            const toggleButton = document.getElementById('toggleSkills');
+            const skillsSection = document.getElementById('contactInfoskills');
+          
+            toggleButton.addEventListener('click', () => {
+              if (skillsSection.classList.contains('hidden')) {
+                skillsSection.classList.remove('hidden');
+                toggleButton.textContent = 'Hide Skills';
+              } else {
+                skillsSection.classList.add('hidden');
+                toggleButton.textContent = 'Show Skills';
+              }
+            });
+        </script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const { jsPDF } = window.jspdf;
+    
+                // Function to generate the PDF
+                function generatePDF(callback) {
+                    const resumeElement = document.getElementById('resume');
+    
+                    // Capture the resume element as a canvas
+                    html2canvas(resumeElement).then(function(canvas) {
+                        const imgData = canvas.toDataURL('image/png');
+    
+                        // Create a PDF document
+                        const pdf = new jsPDF('p', 'mm', 'a4');
+    
+                        // Add the image to the PDF (coordinates and dimensions can be adjusted)
+                        pdf.addImage(imgData, 'PNG', 0, 0, 210, 297); // Full page A4 size (210mm by 297mm)
+    
+                        // Return the PDF object if a callback is provided (for sharing)
+                        if (callback) {
+                            callback(pdf);
+                        } else {
+                            // Save the generated PDF
+                            pdf.save('resume.pdf');
+                        }
+                    });
+                }
+    
+                // Download PDF
+                document.getElementById('downloadResume').addEventListener('click', function() {
+                    generatePDF(); // No callback for download
+                });
+    
+                // Share PDF via Email
+                document.getElementById('share').addEventListener('click', function() {
+                    generatePDF(function(pdf) {
+                        const pdfBlob = pdf.output('blob');
+                        
+                        // Create a link for the blob
+                        const fileURL = URL.createObjectURL(pdfBlob);
+    
+                        // Mailto with attachment link (user will need to download from the link)
+                        const subject = "Sharing My Resume";
+                        const body = `Hi,\n\nPlease find my resume attached.\n\nYou can download it from the following link: ${fileURL}\n\nRegards, Amna Aftab`;
+    
+                        // Open mail client
+                        window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                    });
+                });
+            });
+        </script>
+        
+        
+    </body>
+</html>
